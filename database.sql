@@ -3,11 +3,8 @@
 -- Test Skill IT Fullstack - Latiseducation
 -- ==========================================================
 
-CREATE DATABASE IF NOT EXISTS latis_siswa CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE latis_siswa;
-
 -- ----------------------------------------------------------
--- Table: users  (untuk login)
+-- Table: users (untuk login)
 -- ----------------------------------------------------------
 CREATE TABLE users (
     id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -21,10 +18,10 @@ CREATE TABLE users (
     UNIQUE KEY username (username)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- password default: "password123" (di-hash dengan password_hash bcrypt)
+-- password default: "password123"
 -- hash di bawah ini valid untuk "password123"
 INSERT INTO users (username, password, nama, position, photo) VALUES
-('admin', '$2b$10$lHwRdyg7nPI3LYcUt4H.buiPhhSyJAf.x7VLEKJSx/9bWlb4I9J0S', 'Nama Kandidat', 'IT Specialist Fullstack Developer', NULL);
+('admin', '$2b$10$lHwRdyg7nPI3LYcUt4H.buiPhhSyJAf.x7VLEKJSx/9bWlb4I9J0S', 'Budi Cahyono', 'IT Specialist Fullstack Developer', NULL);
 
 -- ----------------------------------------------------------
 -- Table: lembaga
@@ -54,10 +51,13 @@ CREATE TABLE siswa (
     PRIMARY KEY (id),
     UNIQUE KEY nis (nis),
     KEY lembaga_id (lembaga_id),
-    CONSTRAINT fk_siswa_lembaga FOREIGN KEY (lembaga_id) REFERENCES lembaga (id) ON DELETE CASCADE
+    CONSTRAINT fk_siswa_lembaga
+        FOREIGN KEY (lembaga_id)
+        REFERENCES lembaga (id)
+        ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- contoh data (opsional, boleh dihapus)
+-- contoh data
 INSERT INTO siswa (nis, nama_siswa, email, lembaga_id) VALUES
 ('1001', 'Budi Santoso', 'budi.santoso@example.com', 1),
 ('1002', 'Siti Aminah', 'siti.aminah@example.com', 2);
